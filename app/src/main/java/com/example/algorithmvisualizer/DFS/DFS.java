@@ -1,38 +1,36 @@
 package com.example.algorithmvisualizer.DFS;
 
+import java.util.*;
+import java.util.function.Consumer;
 
-import java.util.HashSet;
-import java.util.Set;
+public class DFS {
+    private Graph G;
 
-    public class DFS {
-        private Graph G;
-        private Set<Integer> visited = new HashSet<>();
+    public DFS(Graph G) {
+        this.G = G;
+    }
 
-        public DFS(Graph G) {
-            this.G = G;
-        }
+    public void reset() {
+        for (Vertex v : G.getAllVertices()) v.visited = false;
+    }
 
-        public void run(int startId, VisitListener listener) {
-            dfs(startId, listener);
-        }
+    // DFS კონკრეტული Vertex-დან
+    public void run(int startId, Consumer<Integer> visit) {
+        Set<Integer> visited = new HashSet<>();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(startId);
 
-        private void dfs(int id, VisitListener listener) {
-            if (visited.contains(id)) return;
+        while (!stack.isEmpty()) {
+            int current = stack.pop();
+            if (!visited.contains(current)) {
+                visited.add(current);
+                visit.accept(current);
 
-            visited.add(id);
-            listener.onVisit(id);
-
-            for (Edge e : G.edges) {
-                if (e.from == id) {
-                    dfs(e.to, listener);
+                List<Integer> neighbors = G.adjacency.getOrDefault(current, new ArrayList<>());
+                for (int n : neighbors) {
+                    if (!visited.contains(n)) stack.push(n);
                 }
             }
         }
-        public void reset() {
-            visited.clear();
-        }
-
-        public interface VisitListener {
-            void onVisit(int vertexId);
-        }
     }
+}

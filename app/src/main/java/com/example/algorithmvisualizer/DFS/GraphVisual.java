@@ -1,16 +1,15 @@
 package com.example.algorithmvisualizer.DFS;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RadialGradient;
-import android.graphics.Shader;
+import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.MotionEvent;
+
+import java.util.*;
 
 public class GraphVisual extends View {
-    private boolean layoutDone = false;
+
     private Graph G;
     private Paint paint = new Paint();
     private Paint textPaint = new Paint();
@@ -18,11 +17,18 @@ public class GraphVisual extends View {
     private Vertex selectedVertex = null;
     private float offsetX, offsetY;
 
+    // Vertex click listener DFS-ისთვის
+    public interface OnVertexClickListener {
+        void onVertexClick(Vertex v);
+    }
+    private OnVertexClickListener vertexClickListener;
+    public void setOnVertexClickListener(OnVertexClickListener listener) {
+        vertexClickListener = listener;
+    }
+
     public GraphVisual(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        // ტექსტისთვის ფერი, ზომა, bold, shadow
-        textPaint.setColor(Color.RED);
+        textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(50);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setFakeBoldText(true);
@@ -31,7 +37,6 @@ public class GraphVisual extends View {
 
     public void setGraph(Graph G) {
         this.G = G;
-        layoutDone = false; // ახალ Graph-ზე layout ხელახლა მოხდება
         invalidate();
     }
 
@@ -40,107 +45,122 @@ public class GraphVisual extends View {
         super.onDraw(canvas);
         if (G == null) return;
 
-        if (!layoutDone) {
-            G.buildTree();
-            int startY = getHeight() / 3;
-            layoutTree(0, 0, getWidth(), startY, 180);
-            layoutDone = true;
-        }
+        layoutTree(); // მხოლოდ ახალ Vertex-ებზე პოზიციის დადგენა
 
+        drawEdges(canvas);
+        drawVertices(canvas);
+    }
+
+    private void drawEdges(Canvas canvas) {
         paint.setStrokeWidth(5);
-
-        // Edge-ების დახატვა
         for (Edge e : G.edges) {
-            Vertex from = G.vertices.get(e.from);
-            Vertex to = G.vertices.get(e.to);
-            paint.setColor(Color.BLACK);
-            canvas.drawLine(from.x, from.y, to.x, to.y, paint);
+            Vertex from = G.getVertex(e.from);
+            Vertex to = G.getVertex(e.to);
+            if (from != null && to != null) {
+                paint.setColor(Color.BLACK);
+                canvas.drawLine(from.x, from.y, to.x, to.y, paint);
+            }
         }
+    }
 
-        // Vertex-ების დახატვა
-        for (Vertex v : G.vertices) {
-            // Gradient background for circle
+    private void drawVertices(Canvas canvas) {
+        int radius = 70;
+        for (Vertex v : G.getAllVertices()) {
             int circleColor = v.visited ? Color.parseColor("#4CAF50") : Color.parseColor("#2196F3");
-            RadialGradient gradient = new RadialGradient(
-                    v.x, v.y, 70,
-                    Color.WHITE, circleColor,
-                    Shader.TileMode.MIRROR
-            );
+            RadialGradient gradient = new RadialGradient(v.x, v.y, radius, Color.WHITE, circleColor, Shader.TileMode.MIRROR);
+
             paint.setShader(gradient);
             paint.setStyle(Paint.Style.FILL);
-            canvas.drawCircle(v.x, v.y, 70, paint);
+            canvas.drawCircle(v.x, v.y, radius, paint);
 
-            // Outline for contrast
             paint.setShader(null);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(6);
             paint.setColor(Color.BLACK);
-            canvas.drawCircle(v.x, v.y, 70, paint);
+            canvas.drawCircle(v.x, v.y, radius, paint);
 
-            // Draw text
             canvas.drawText(String.valueOf(v.id), v.x, v.y + 18, textPaint);
         }
     }
 
     @Override
-    public boolean onTouchEvent(android.view.MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
 
-        switch (event.getAction()) {
-            case android.view.MotionEvent.ACTION_DOWN:
-                for (Vertex v : G.vertices) {
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                for (Vertex v : G.getAllVertices()) {
                     float dx = x - v.x;
                     float dy = y - v.y;
-                    if (dx * dx + dy * dy <= 70 * 70) {
+                    if (dx*dx + dy*dy <= 70*70) {
                         selectedVertex = v;
                         offsetX = x - v.x;
                         offsetY = y - v.y;
+
+                        if (vertexClickListener != null)
+                            vertexClickListener.onVertexClick(v);
                         break;
                     }
                 }
                 break;
-
-            case android.view.MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE:
                 if (selectedVertex != null) {
                     selectedVertex.x = x - offsetX;
                     selectedVertex.y = y - offsetY;
                     invalidate();
                 }
                 break;
-
-            case android.view.MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP:
                 selectedVertex = null;
                 break;
         }
         return true;
     }
 
-    private void layoutTree(int v, int left, int right, int y, int levelHeight) {
-        int screenWidth = getWidth();
-        int screenHeight = getHeight();
-        int radius = 70;
-        int padding = 20;
+    // Vertex-ების ავტომატური განლაგება მხოლოდ ახალ Vertex-ებზე
+    private void layoutTree() {
+        if (G.getAllVertices().isEmpty()) return;
 
-        // ეკრანის საზღვრები
-        left = Math.max(left, padding + radius);
-        right = Math.min(right, screenWidth - padding - radius);
-        y = Math.min(y, screenHeight - padding - radius);
+        int width = getWidth();
+        int topOffset = 200; // საწყისი Y პოზიცია
+        int levelHeight = 180;
 
-        int mid = (left + right) / 2;
-        Vertex vert = G.vertices.get(v);
-        vert.x = mid;
-        vert.y = y;
-
-        int childrenCount = G.children.get(v).size();
-        if (childrenCount == 0) return;
-
-        int segment = (right - left) / childrenCount;
-        int childLeft = left;
-
-        for (int u : G.children.get(v)) {
-            layoutTree(u, childLeft, childLeft + segment, y + levelHeight, levelHeight);
-            childLeft += segment;
+        // დონეების დადგენა DFS-ის მსგავსი ალგორითმით
+        Map<Integer, Integer> levels = new HashMap<>();
+        for (Vertex v : G.getAllVertices()) {
+            assignLevel(v.id, 0, levels, new HashSet<>());
         }
+
+        Map<Integer, Integer> levelCounts = new HashMap<>();
+        for (Vertex v : G.getAllVertices()) {
+            if (v.x != 0 && v.y != 0) continue; // ხელით გადატანილი Vertex შენარჩუნება
+
+            int level = levels.get(v.id);
+            int count = levelCounts.getOrDefault(level, 0);
+
+            long total = G.getAllVertices().stream()
+                    .filter(vv -> levels.get(vv.id) == level && vv.x == 0 && vv.y == 0)
+                    .count();
+
+            int x = 50 + (int)((width - 100) * (count + 1) / (total + 1));
+            int y = topOffset + level * levelHeight;
+            v.x = x;
+            v.y = y;
+
+            levelCounts.put(level, count + 1);
+        }
+    }
+
+    // დონეების დადგენა DFS-ის მსგავსი ალგორითმი
+    private void assignLevel(int id, int level, Map<Integer, Integer> levels, Set<Integer> visited) {
+        if (visited.contains(id)) return;
+        visited.add(id);
+
+        if (!levels.containsKey(id) || level < levels.get(id))
+            levels.put(id, level);
+
+        List<Integer> neighbors = G.adjacency.getOrDefault(id, new ArrayList<>());
+        for (int n : neighbors) assignLevel(n, level + 1, levels, visited);
     }
 }

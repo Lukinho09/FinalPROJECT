@@ -1,20 +1,40 @@
 package com.example.algorithmvisualizer.DFS;
 
-import java.util.Vector;
+import java.util.*;
 
 public class Graph {
-    public Vector<Vertex> vertices = new Vector<>();
-    public Vector<Edge> edges = new Vector<>();
+    public Map<Integer, Vertex> vertices = new HashMap<>();
+    public List<Edge> edges = new ArrayList<>();
+    public Map<Integer, List<Integer>> adjacency = new HashMap<>();
 
-    public Vector<Vector<Integer>> children = new Vector<>();
+    public Vertex addVertexIfNotExists(int id) {
+        vertices.putIfAbsent(id, new Vertex(id, 0, 0));
+        adjacency.putIfAbsent(id, new ArrayList<>());
+        return vertices.get(id);
+    }
 
-    public void buildTree() {
-        children.clear();
-        for (int i = 0; i < vertices.size(); i++)
-            children.add(new Vector<>());
+    public void addEdge(int from, int to) {
+        addVertexIfNotExists(from);
+        addVertexIfNotExists(to);
 
-        for (Edge e : edges) {
-            children.get(e.from).add(e.to);
-        }
+        edges.add(new Edge(from, to));
+
+        // directed graph: from -> to
+        adjacency.get(from).add(to);
+
+        // ორი მხარე, რომ უკანაც შემოვიდეს DFS-ში
+        adjacency.get(to).add(from);
+    }
+
+    public boolean hasVertex(int id) {
+        return vertices.containsKey(id);
+    }
+
+    public Vertex getVertex(int id) {
+        return vertices.get(id);
+    }
+
+    public Collection<Vertex> getAllVertices() {
+        return vertices.values();
     }
 }

@@ -42,7 +42,7 @@
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start DFS"
+        android:text="Start BFS"
         android:layout_marginTop="6dp"/>
 
     <Button

@@ -29,4 +29,27 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="24dp"/>
+
+    <LinearLayout
+        android:id="@+id/bfsCard"
+        android:layout_width="260dp"
+        android:layout_height="199dp"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/bfsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BFS"
+            android:textColor="@android:color/black"
+            android:textSize="80sp" />
+    </LinearLayout>
+
 </LinearLayout>

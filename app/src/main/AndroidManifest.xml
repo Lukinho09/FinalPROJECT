@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlgorithmVisualizer">
         <activity android:name=".DFS.DFSactivity"/>
+        <activity android:name=".BFS.BFSactivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
