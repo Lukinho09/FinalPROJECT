@@ -33,7 +33,7 @@ public class LinearSearchActivity extends AppCompatActivity {
     private TextView txtResult;
     private TextView txtStep;
 
-    // ✅ Step buttons
+
     private Button btnNextStep;
     private Button btnBackStep;
 
@@ -44,10 +44,10 @@ public class LinearSearchActivity extends AppCompatActivity {
     private boolean readingArray = false;
     private boolean isRunning = false;
 
-    // ✅ Step state
+
     private int target = 0;
-    private int stepIndex = -1;   // current index we are on
-    private int maxStep = -1;     // farthest step reached (for back/forward)
+    private int stepIndex = -1;
+    private int maxStep = -1;
     private int foundIndex = -1;
     private boolean finished = false;
 
@@ -252,7 +252,7 @@ public class LinearSearchActivity extends AppCompatActivity {
         return true;
     }
 
-    // ✅ Manual mode start
+
     private void startLinearManual() {
         isRunning = true;
 
@@ -263,13 +263,13 @@ public class LinearSearchActivity extends AppCompatActivity {
         txtResult.setText("");
         txtResult.setTextColor(Color.parseColor("#111827"));
 
-        // reset step state
+
         stepIndex = -1;
         maxStep = -1;
         foundIndex = -1;
         finished = false;
 
-        renderLinearState(); // initial view
+        renderLinearState();
         setStepButtonsEnabled(true);
         updateStepText();
     }
@@ -278,14 +278,14 @@ public class LinearSearchActivity extends AppCompatActivity {
         if (!isRunning) return;
         if (finished) return;
 
-        // Move forward one step
+
         stepIndex++;
         if (stepIndex > maxStep) maxStep = stepIndex;
 
-        // If exceeded N -> finished not found
+
         if (stepIndex >= N) {
             finished = true;
-            stepIndex = N; // keep consistent
+            stepIndex = N;
             renderLinearState();
             txtStep.setText("Finished");
             txtResult.setTextColor(Color.parseColor("#E11D48"));
@@ -294,7 +294,7 @@ public class LinearSearchActivity extends AppCompatActivity {
             return;
         }
 
-        // Check match
+
         Integer v = arrayValues.get(stepIndex);
         if (v != null && v == target) {
             foundIndex = stepIndex;
@@ -307,7 +307,7 @@ public class LinearSearchActivity extends AppCompatActivity {
             return;
         }
 
-        // Normal step
+
         renderLinearState();
         updateStepText();
     }
@@ -315,14 +315,14 @@ public class LinearSearchActivity extends AppCompatActivity {
     private void doBack() {
         if (!isRunning) return;
 
-        if (stepIndex <= -1) return; // nothing to go back
+        if (stepIndex <= -1) return;
         stepIndex--;
 
-        // if we go back, we are no longer "finished" unless we are still on found step
+
         finished = false;
         foundIndex = -1;
 
-        // Re-check if current step itself equals target (only when stepIndex>=0)
+
         if (stepIndex >= 0) {
             Integer v = arrayValues.get(stepIndex);
             if (v != null && v == target) {

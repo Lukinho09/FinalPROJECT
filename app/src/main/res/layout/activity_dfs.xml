@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +37,6 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- GRAPH CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="500dp"
@@ -54,7 +52,6 @@
                 android:background="#EEF2FF" />
         </LinearLayout>
 
-        <!-- CONTROLS CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +70,6 @@
                 android:textColor="#111827"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- INPUT + ADD -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +96,6 @@
                     android:layout_width="10dp"
                     android:layout_height="1dp"/>
 
-                <!-- ADD (BLUE) -->
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="120dp"
@@ -118,7 +113,6 @@
                     android:drawablePadding="8dp"/>
             </LinearLayout>
 
-            <!-- START DFS (RED) -->
             <Button
                 android:id="@+id/btnStart"
                 android:layout_width="match_parent"

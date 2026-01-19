@@ -12,7 +12,6 @@
         android:gravity="center_horizontal"
         android:padding="16dp">
 
-        <!-- Header Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +32,6 @@
 
         </LinearLayout>
 
-        <!-- Linear Button (Blue) -->
         <Button
             android:id="@+id/btnLinear"
             android:layout_width="match_parent"
@@ -52,7 +50,6 @@
             android:drawablePadding="12dp"
             android:layout_marginBottom="14dp"/>
 
-        <!-- Binary Button (Red) -->
         <Button
             android:id="@+id/btnBinary"
             android:layout_width="match_parent"
@@ -70,7 +67,6 @@
             android:drawableStart="@android:drawable/ic_menu_sort_by_size"
             android:drawablePadding="12dp"/>
 
-        <!-- Small footer tip -->
 
     </LinearLayout>
 </ScrollView>

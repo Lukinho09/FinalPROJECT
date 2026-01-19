@@ -14,7 +14,6 @@ public class DFS {
         for (Vertex v : G.getAllVertices()) v.visited = false;
     }
 
-    // DFS კონკრეტული Vertex-დან
     public void run(int startId, Consumer<Integer> visit) {
         Set<Integer> visited = new HashSet<>();
         Stack<Integer> stack = new Stack<>();

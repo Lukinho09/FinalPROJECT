@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
         searchText.setOnClickListener(v ->
                 startActivity(new Intent(this, SearchMenuActivity.class)));
 
-        // DFS-ზე გადასვლა
+
         dfsText.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, DFSactivity.class);
             startActivity(intent);
         });
 
-        // BFS-ზე გადასვლა
+
         bfsText.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, BFSactivity.class);
             startActivity(intent);

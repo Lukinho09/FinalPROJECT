@@ -19,10 +19,8 @@ public class Graph {
 
         edges.add(new Edge(from, to));
 
-        // directed graph: from -> to
         adjacency.get(from).add(to);
 
-        // ორი მხარე, რომ უკანაც შემოვიდეს DFS-ში
         adjacency.get(to).add(from);
     }
 

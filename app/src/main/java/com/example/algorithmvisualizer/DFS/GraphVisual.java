@@ -17,10 +17,8 @@ public class GraphVisual extends View {
     private Vertex draggedVertex = null;
     private float offsetX, offsetY;
 
-    // ✅ selected vertex id (to draw red ring)
     private int selectedVertexId = -1;
 
-    // Vertex click listener DFS/BFS-ისთვის
     public interface OnVertexClickListener {
         void onVertexClick(Vertex v);
     }
@@ -31,7 +29,6 @@ public class GraphVisual extends View {
         vertexClickListener = listener;
     }
 
-    // ✅ allow activity to set selection too (optional but useful)
     public void setSelectedVertexId(int id) {
         selectedVertexId = id;
         invalidate();
@@ -63,7 +60,7 @@ public class GraphVisual extends View {
         super.onDraw(canvas);
         if (G == null) return;
 
-        layoutTree(); // მხოლოდ ახალ Vertex-ებზე პოზიციის დადგენა
+        layoutTree();
 
         drawEdges(canvas);
         drawVertices(canvas);
@@ -96,19 +93,16 @@ public class GraphVisual extends View {
                     Shader.TileMode.MIRROR
             );
 
-            // Fill
             paint.setShader(gradient);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(v.x, v.y, radius, paint);
 
-            // Black border
             paint.setShader(null);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(6);
             paint.setColor(Color.BLACK);
             canvas.drawCircle(v.x, v.y, radius, paint);
 
-            // ✅ Selected red ring (outer glow/border)
             if (v.id == selectedVertexId) {
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setStrokeWidth(10);
@@ -116,7 +110,7 @@ public class GraphVisual extends View {
                 canvas.drawCircle(v.x, v.y, radius + 10, paint);
             }
 
-            // Text
+
             canvas.drawText(String.valueOf(v.id), v.x, v.y + 18, textPaint);
         }
     }
@@ -139,7 +133,6 @@ public class GraphVisual extends View {
                         offsetX = x - v.x;
                         offsetY = y - v.y;
 
-                        // ✅ mark selected and redraw red ring
                         selectedVertexId = v.id;
                         invalidate();
 
@@ -168,7 +161,6 @@ public class GraphVisual extends View {
         return true;
     }
 
-    // Vertex-ების ავტომატური განლაგება მხოლოდ ახალ Vertex-ებზე
     private void layoutTree() {
         if (G.getAllVertices().isEmpty()) return;
 
@@ -176,7 +168,6 @@ public class GraphVisual extends View {
         int topOffset = 200;
         int levelHeight = 180;
 
-        // დონეების დადგენა DFS-ის მსგავსი ალგორითმით
         Map<Integer, Integer> levels = new HashMap<>();
         for (Vertex v : G.getAllVertices()) {
             assignLevel(v.id, 0, levels, new HashSet<>());
@@ -184,7 +175,7 @@ public class GraphVisual extends View {
 
         Map<Integer, Integer> levelCounts = new HashMap<>();
         for (Vertex v : G.getAllVertices()) {
-            if (v.x != 0 && v.y != 0) continue; // ხელით გადატანილი Vertex შენარჩუნება
+            if (v.x != 0 && v.y != 0) continue;
 
             Integer levelObj = levels.get(v.id);
             int level = (levelObj == null) ? 0 : levelObj;
@@ -206,7 +197,7 @@ public class GraphVisual extends View {
         }
     }
 
-    // დონეების დადგენა DFS-ის მსგავსი ალგორითმი
+
     private void assignLevel(int id, int level, Map<Integer, Integer> levels, Set<Integer> visited) {
         if (visited.contains(id)) return;
         visited.add(id);

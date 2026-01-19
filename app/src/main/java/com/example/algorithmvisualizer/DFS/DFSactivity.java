@@ -24,7 +24,6 @@ public class DFSactivity extends AppCompatActivity {
 
         graphView.setOnVertexClickListener(v -> {
             startVertexId = v.id;
-            // ✅ (optional) selection stays even if you start later
             graphView.setSelectedVertexId(startVertexId);
         });
 
@@ -45,7 +44,6 @@ public class DFSactivity extends AppCompatActivity {
         btnStart.setOnClickListener(v -> {
             if (startVertexId == null || !G.hasVertex(startVertexId)) return;
 
-            // ✅ keep selected shown
             graphView.setSelectedVertexId(startVertexId);
 
             DFS dfs = new DFS(G);

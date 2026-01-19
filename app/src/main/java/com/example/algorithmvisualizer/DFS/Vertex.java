@@ -1,9 +1,9 @@
 package com.example.algorithmvisualizer.DFS;
 
 public class Vertex {
-    public int id;         // Vertex-ის ნომერი
-    public float x, y;     // Vertex-ის პოზიცია ეკრანზე
-    public boolean visited = false; // DFS-ისთვის
+    public int id;
+    public float x, y;
+    public boolean visited = false;
 
     public Vertex(int id, float x, float y) {
         this.id = id;

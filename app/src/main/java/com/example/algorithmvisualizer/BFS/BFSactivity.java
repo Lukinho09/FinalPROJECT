@@ -30,7 +30,6 @@ public class BFSactivity extends AppCompatActivity {
 
         graphView.setOnVertexClickListener(v -> {
             startVertexId = v.id;
-            // ✅ show selected vertex red
             graphView.setSelectedVertexId(startVertexId);
         });
 
@@ -53,7 +52,6 @@ public class BFSactivity extends AppCompatActivity {
         btnStart.setOnClickListener(v -> {
             if (startVertexId == null) return;
 
-            // ✅ keep selected shown
             graphView.setSelectedVertexId(startVertexId);
 
             for (Vertex vertex : G.getAllVertices())

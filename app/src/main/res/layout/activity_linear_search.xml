@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- HEADER CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +37,6 @@
                 android:layout_marginTop="6dp"/>
         </LinearLayout>
 
-        <!-- CARD: Setup -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +91,6 @@
                 android:paddingEnd="16dp"/>
         </LinearLayout>
 
-        <!-- CARD: Search -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,7 +144,6 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"/>
 
-            <!-- Step controls -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -155,7 +151,6 @@
                 android:gravity="center"
                 android:layout_marginTop="12dp">
 
-                <!-- Back (gray) -->
                 <Button
                     android:id="@+id/btnBackStep"
                     android:layout_width="0dp"
@@ -177,7 +172,6 @@
                     android:layout_width="12dp"
                     android:layout_height="1dp"/>
 
-                <!-- Next (blue) -->
                 <Button
                     android:id="@+id/btnNextStep"
                     android:layout_width="0dp"
@@ -196,7 +190,6 @@
                     app:backgroundTint="@null" />
             </LinearLayout>
 
-            <!-- Step counter -->
             <TextView
                 android:id="@+id/txtStep"
                 android:layout_width="match_parent"
@@ -220,7 +213,6 @@
                 android:padding="14dp"/>
         </LinearLayout>
 
-        <!-- CARD: Array View -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

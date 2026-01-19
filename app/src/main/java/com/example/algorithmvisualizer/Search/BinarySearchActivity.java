@@ -35,11 +35,11 @@ public class BinarySearchActivity extends AppCompatActivity {
     private TextView txtStep;
     private TextView txtRange;
 
-    // ✅ Step buttons
+
     private Button btnNextStep;
     private Button btnBackStep;
 
-    // ✅ Auto sort
+
     private Button btnAutoSort;
 
     private int N = -1;
@@ -49,13 +49,13 @@ public class BinarySearchActivity extends AppCompatActivity {
     private boolean readingArray = false;
     private boolean isRunning = false;
 
-    // ✅ Step history state
+
     private static class State {
         int left, right, mid;
         State(int l, int r, int m) { left = l; right = r; mid = m; }
     }
     private final ArrayList<State> history = new ArrayList<>();
-    private int pointer = -1;          // current step index in history
+    private int pointer = -1;
     private int target = 0;
     private boolean finished = false;
     private int foundIndex = -1;
@@ -310,7 +310,6 @@ public class BinarySearchActivity extends AppCompatActivity {
         txtResult.setText("Array sorted automatically.");
     }
 
-    // ✅ Manual binary start
     private void startBinaryManual() {
         isRunning = true;
         finished = false;
@@ -327,7 +326,7 @@ public class BinarySearchActivity extends AppCompatActivity {
         history.clear();
         pointer = -1;
 
-        // initial (before first mid)
+
         State s = new State(0, N - 1, -1);
         history.add(s);
         pointer = 0;
@@ -345,34 +344,32 @@ public class BinarySearchActivity extends AppCompatActivity {
 
         State cur = history.get(pointer);
 
-        // If current range invalid => finished
+
         if (cur.left > cur.right) {
             finishedNotFound();
             return;
         }
 
-        // Compute mid on next
+
         int mid = cur.left + (cur.right - cur.left) / 2;
         Integer midVal = arrayValues.get(mid);
 
-        // Show this step (range + mid)
+
         State shown = new State(cur.left, cur.right, mid);
 
-        // If we are moving forward beyond existing history, append.
+
         if (pointer == history.size() - 1) {
             history.add(shown);
             pointer++;
         } else {
             pointer++;
             history.set(pointer, shown);
-            // trim any future states after pointer (so forward becomes consistent)
             while (history.size() > pointer + 1) history.remove(history.size() - 1);
         }
 
         renderState(history.get(pointer));
         txtStep.setText("Checking mid = " + mid);
 
-        // Decide result and create next range state (but only when user presses Next again)
         if (midVal != null && midVal == target) {
             finished = true;
             foundIndex = mid;
@@ -394,7 +391,6 @@ public class BinarySearchActivity extends AppCompatActivity {
             return;
         }
 
-        // Prepare the NEXT range state and append it immediately so Next continues smoothly
         int newLeft = cur.left;
         int newRight = cur.right;
 
@@ -418,7 +414,6 @@ public class BinarySearchActivity extends AppCompatActivity {
 
         pointer--;
 
-        // reset finished flags and result if we go back
         finished = false;
         foundIndex = -1;
         txtResult.setText("");
@@ -443,13 +438,13 @@ public class BinarySearchActivity extends AppCompatActivity {
     }
 
     private void renderState(State s) {
-        // Reset all cells based on range
+
         for (int i = 0; i < N; i++) {
             if (i < s.left || i > s.right) valueCells.get(i).setBackground(bgDimmedOutside());
             else valueCells.get(i).setBackground(bgInRange());
         }
 
-        // mid highlight
+
         if (s.mid >= 0 && s.mid < N) valueCells.get(s.mid).setBackground(bgMidRed());
 
         updateRangeText(s);
@@ -465,7 +460,7 @@ public class BinarySearchActivity extends AppCompatActivity {
         btnBackStep.setEnabled(enabled);
     }
 
-    // ----------- backgrounds -----------
+
 
     private GradientDrawable bgNormal() {
         GradientDrawable d = new GradientDrawable();

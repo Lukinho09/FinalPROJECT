@@ -7,8 +7,6 @@
     android:paddingTop="36dp"
     android:paddingBottom="24dp">
 
-    <!-- Pretty Title -->
-    <!-- Pretty Title -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +35,7 @@
 
     </LinearLayout>
 
-    <!-- DFS -->
+
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="110dp"
@@ -65,7 +63,7 @@
         android:layout_width="1dp"
         android:layout_height="18dp"/>
 
-    <!-- BFS -->
+
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="110dp"
@@ -93,7 +91,7 @@
         android:layout_width="1dp"
         android:layout_height="18dp"/>
 
-    <!-- Search -->
+
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="110dp"
