@@ -14,6 +14,10 @@
         android:theme="@style/Theme.AlgorithmVisualizer">
         <activity android:name=".DFS.DFSactivity"/>
         <activity android:name=".BFS.BFSactivity" />
+        <activity android:name=".Search.SearchMenuActivity" />
+        <activity android:name=".Search.LinearSearchActivity" />
+        <activity android:name=".Search.BinarySearchActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

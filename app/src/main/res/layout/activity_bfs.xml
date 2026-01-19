@@ -45,11 +45,4 @@
         android:text="Start BFS"
         android:layout_marginTop="6dp"/>
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main Menu"
-        android:layout_margin="16dp" />
-
 </LinearLayout>

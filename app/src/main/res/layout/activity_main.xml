@@ -1,55 +1,120 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:background="#f2f2f2">
+    android:gravity="center_horizontal"
+    android:background="#F2F2F2"
+    android:paddingTop="36dp"
+    android:paddingBottom="24dp">
 
-    <!-- Card-like container for DFS button -->
+    <!-- Pretty Title -->
+    <!-- Pretty Title -->
     <LinearLayout
-        android:layout_width="212dp"
-        android:layout_height="155dp"
-        android:background="@drawable/dfs_button_bg"
-        android:elevation="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="28dp">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Algorithm Visualizer"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#111827"
+            android:letterSpacing="0.07"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/bg_title_pill"
+            android:shadowColor="#22000000"
+            android:shadowDx="0"
+            android:shadowDy="2"
+            android:shadowRadius="8" />
+
+    </LinearLayout>
+
+    <!-- DFS -->
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="110dp"
+        android:background="@drawable/bg_algo_button"
+        android:elevation="14dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/dfsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shadowColor="#80000000"
-            android:shadowDx="4"
-            android:shadowDy="4"
-            android:shadowRadius="6"
             android:text="DFS"
             android:textColor="@android:color/white"
-            android:textSize="48sp"
-            android:textStyle="bold" />
+            android:textSize="46sp"
+            android:textStyle="bold"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="10"/>
     </LinearLayout>
 
     <View
         android:layout_width="1dp"
-        android:layout_height="24dp"/>
+        android:layout_height="18dp"/>
 
+    <!-- BFS -->
     <LinearLayout
-        android:id="@+id/bfsCard"
-        android:layout_width="260dp"
-        android:layout_height="199dp"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
+        android:layout_width="320dp"
+        android:layout_height="110dp"
+        android:background="@drawable/bg_algo_button"
+        android:elevation="14dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/bfsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BFS"
-            android:textColor="@android:color/black"
-            android:textSize="80sp" />
+            android:textColor="@android:color/white"
+            android:textSize="46sp"
+            android:textStyle="bold"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="10"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="18dp"/>
+
+    <!-- Search -->
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="110dp"
+        android:background="@drawable/bg_algo_button"
+        android:elevation="14dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/searchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search In Array"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="10"/>
     </LinearLayout>
 
 </LinearLayout>

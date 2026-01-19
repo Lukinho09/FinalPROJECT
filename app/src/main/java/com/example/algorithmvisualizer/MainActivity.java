@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.algorithmvisualizer.DFS.DFSactivity;
 import com.example.algorithmvisualizer.BFS.BFSactivity;
+import com.example.algorithmvisualizer.Search.SearchMenuActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView dfsText = findViewById(R.id.dfsText);
         TextView bfsText = findViewById(R.id.bfsText);
+        TextView searchText = findViewById(R.id.searchText);
+
+        searchText.setOnClickListener(v ->
+                startActivity(new Intent(this, SearchMenuActivity.class)));
 
         // DFS-ზე გადასვლა
         dfsText.setOnClickListener(v -> {

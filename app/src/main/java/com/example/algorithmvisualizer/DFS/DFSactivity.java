@@ -3,7 +3,9 @@ package com.example.algorithmvisualizer.DFS;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.algorithmvisualizer.R;
 
 public class DFSactivity extends AppCompatActivity {
@@ -20,14 +22,11 @@ public class DFSactivity extends AppCompatActivity {
         EditText inputEdge = findViewById(R.id.inputEdge);
         Button btnAdd = findViewById(R.id.btnAdd);
 
-        Button btnBack = findViewById(R.id.btnBack);
-
-        btnBack.setOnClickListener(v -> {
-            finish(); // ხურავს DFSactivity-ს და აბრუნებს წინა Activity-ზე
+        graphView.setOnVertexClickListener(v -> {
+            startVertexId = v.id;
+            // ✅ (optional) selection stays even if you start later
+            graphView.setSelectedVertexId(startVertexId);
         });
-
-
-        graphView.setOnVertexClickListener(v -> startVertexId = v.id);
 
         btnAdd.setOnClickListener(v -> {
             String text = inputEdge.getText().toString().trim();
@@ -37,7 +36,7 @@ public class DFSactivity extends AppCompatActivity {
             try {
                 if (parts.length == 1) G.addVertexIfNotExists(Integer.parseInt(parts[0]));
                 else if (parts.length == 2) G.addEdge(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-            } catch(Exception ignored){}
+            } catch (Exception ignored) {}
 
             graphView.setGraph(G);
             inputEdge.setText("");
@@ -46,8 +45,12 @@ public class DFSactivity extends AppCompatActivity {
         btnStart.setOnClickListener(v -> {
             if (startVertexId == null || !G.hasVertex(startVertexId)) return;
 
+            // ✅ keep selected shown
+            graphView.setSelectedVertexId(startVertexId);
+
             DFS dfs = new DFS(G);
             dfs.reset();
+
             for (Vertex vertex : G.getAllVertices()) vertex.visited = false;
             graphView.invalidate();
 

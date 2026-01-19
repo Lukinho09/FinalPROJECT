@@ -3,6 +3,7 @@ package com.example.algorithmvisualizer.BFS;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.algorithmvisualizer.R;
@@ -18,7 +19,7 @@ public class BFSactivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bfs); // ⚠️ სხვა layout
+        setContentView(R.layout.activity_bfs);
 
         GraphVisual graphView = findViewById(R.id.graphView);
         Button btnStart = findViewById(R.id.btnStart);
@@ -27,7 +28,11 @@ public class BFSactivity extends AppCompatActivity {
 
         btnStart.setText("Start BFS");
 
-        graphView.setOnVertexClickListener(v -> startVertexId = v.id);
+        graphView.setOnVertexClickListener(v -> {
+            startVertexId = v.id;
+            // ✅ show selected vertex red
+            graphView.setSelectedVertexId(startVertexId);
+        });
 
         btnAdd.setOnClickListener(v -> {
             String text = inputEdge.getText().toString().trim();
@@ -47,6 +52,9 @@ public class BFSactivity extends AppCompatActivity {
 
         btnStart.setOnClickListener(v -> {
             if (startVertexId == null) return;
+
+            // ✅ keep selected shown
+            graphView.setSelectedVertexId(startVertexId);
 
             for (Vertex vertex : G.getAllVertices())
                 vertex.visited = false;
