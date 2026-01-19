@@ -1,48 +1,148 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp">
+    android:background="#F4F6FB"
+    android:fillViewport="true">
 
-    <!-- Graph View -->
-    <com.example.algorithmvisualizer.DFS.GraphVisual
-        android:id="@+id/graphView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#EEEEEE"/>
-
-    <!-- Input row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <EditText
-            android:id="@+id/inputEdge"
-            android:layout_width="196dp"
-            android:layout_height="73dp"
-            android:layout_weight="1"
-            android:hint="Add Vertex"
-            android:inputType="text"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:layout_marginStart="8dp"/>
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:elevation="10dp"
+            android:padding="16dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BFS Visualizer"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#111827"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap a vertex to select root"
+                android:textSize="14sp"
+                android:textColor="#6B7280"
+                android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Graph Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@drawable/bg_card"
+            android:elevation="10dp"
+            android:padding="10dp"
+            android:layout_marginBottom="14dp"
+            android:orientation="vertical">
+
+            <com.example.algorithmvisualizer.DFS.GraphVisual
+                android:id="@+id/graphView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EEF2FF"/>
+        </LinearLayout>
+
+        <!-- Controls Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:elevation="10dp"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Controls"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#111827"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Input + Add -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/inputEdge"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_weight="1"
+                    android:hint="Add vertex / edge (ex: 1 2)"
+                    android:inputType="text"
+                    android:background="@drawable/bg_input"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:drawablePadding="10dp"
+                    android:textColor="#111827"
+                    android:textColorHint="#6B7280"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="1dp"/>
+
+                <!-- Add button (keep your primary, but untint it) -->
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="120dp"
+                    android:layout_height="54dp"
+                    android:text="Add"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_button_primary"
+                    android:backgroundTint="@null"
+                    app:backgroundTint="@null"
+                    android:stateListAnimator="@null"
+                    android:elevation="12dp"
+                    android:drawableStart="@android:drawable/ic_menu_add"
+                    android:drawablePadding="8dp"/>
+            </LinearLayout>
+
+            <!-- Start BFS (RED) -->
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Start BFS"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+
+                android:background="@drawable/bg_button_red"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:stateListAnimator="@null"
+
+                android:elevation="14dp"
+                android:layout_marginTop="14dp"
+                android:drawableStart="@android:drawable/ic_media_play"
+                android:drawablePadding="10dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="16dp"/>
     </LinearLayout>
-
-    <!-- Start DFS -->
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start BFS"
-        android:layout_marginTop="6dp"/>
-
-</LinearLayout>
+</ScrollView>

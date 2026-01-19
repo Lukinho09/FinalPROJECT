@@ -1,64 +1,76 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="24dp"
-    android:background="#F2F2F2">
+    android:background="#F4F6FB"
+    android:fillViewport="true">
 
-    <!-- Title -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="26dp">
+        android:gravity="center_horizontal"
+        android:padding="16dp">
 
-
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Header Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose a search algorithm"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:elevation="10dp"
+            android:padding="16dp"
+            android:layout_marginBottom="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search Algorithms"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:letterSpacing="0.03"/>
+
+        </LinearLayout>
+
+        <!-- Linear Button (Blue) -->
+        <Button
+            android:id="@+id/btnLinear"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:text=" Linear Search"
+            android:textAllCaps="false"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="28sp"
-            android:textColor="#FF0000"
-            android:letterSpacing="0.03"
-            android:layout_marginTop="10dp"/>
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_button_primary"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
+            android:stateListAnimator="@null"
+            android:elevation="14dp"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="12dp"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Binary Button (Red) -->
+        <Button
+            android:id="@+id/btnBinary"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:text=" Binary Search"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_button_red"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
+            android:stateListAnimator="@null"
+            android:elevation="14dp"
+            android:drawableStart="@android:drawable/ic_menu_sort_by_size"
+            android:drawablePadding="12dp"/>
+
+        <!-- Small footer tip -->
+
     </LinearLayout>
-
-    <!-- Linear Search Button -->
-    <Button
-        android:id="@+id/btnLinear"
-        android:layout_width="300dp"
-        android:layout_height="82dp"
-        android:text="Linear Search"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:background="@drawable/bg_primary_button_ripple"
-        android:elevation="12dp"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <View
-        android:layout_width="1dp"
-        android:layout_height="16dp" />
-
-    <!-- Binary Search Button -->
-    <Button
-        android:id="@+id/btnBinary"
-        android:layout_width="300dp"
-        android:layout_height="82dp"
-        android:background="@drawable/bg_secondary_button_ripple"
-        android:clickable="true"
-        android:elevation="12dp"
-        android:focusable="true"
-        android:text="Binary Search"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-
-</LinearLayout>
+</ScrollView>
